@@ -1,0 +1,10 @@
+[
+  {
+    "name": "ACL_Interface_Impact",
+    "description": "Identifies interfaces impacted by ACL changes.",
+    "dependency_type": "schema_leafref",
+    "source_pattern": ".*acl.*",
+    "resolver_type": "function_call",
+    "resolver_function": "_resolve_acl_interface_impact"
+  }
+]

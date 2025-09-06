@@ -1,0 +1,4 @@
+local_interface,neighbor_hostname,neighbor_interface,neighbor_description
+Ethernet1/1,core-sw-01,GigabitEthernet1/0/12,Connection to nxos-sw-02 Eth1/1
+Ethernet1/2,core-sw-02,Ethernet51,Connection to nxos-sw-02 Eth1/2
+Ethernet1/10,nxos-sw-01,port-channel10,Dual Uplinks to Core

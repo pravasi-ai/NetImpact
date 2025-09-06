@@ -1,0 +1,6 @@
+local_interface,neighbor_hostname,neighbor_interface,neighbor_description
+GigabitEthernet0/0/1,core-sw-01,GigabitEthernet1/0/1,Connection to dist-rtr-01 Gi0/0/1
+GigabitEthernet0/0/2,core-sw-02,Ethernet2,Connection to dist-rtr-01 Gi0/0/2
+GigabitEthernet0/0/3,dist-sw-02,Ethernet3,Connection to dist-rtr-01 Gi0/0/3
+GigabitEthernet0/0/4,acc-sw-01,GigabitEthernet1/0/3,Connection to dist-rtr-01 Gi0/0/4
+GigabitEthernet0/0/2,iosxr-rtr-01,GigabitEthernet0/0/0/1,Connection to dist-rtr-01 Gi0/0/2

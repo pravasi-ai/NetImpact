@@ -1,0 +1,389 @@
+{
+  "openconfig-interfaces:interfaces": {
+    "interface": [
+      {
+        "name": "Ethernet1",
+        "config": {
+          "name": "Ethernet1",
+          "description": "Connection to core-sw-01 Gi1/0/2",
+          "type": "iana-if-type:ethernetCsmacd",
+          "mtu": 1500,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "openconfig-if-ip:ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.1.6",
+                      "config": {
+                        "ip": "10.0.1.6",
+                        "prefix-length": 30
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "openconfig-acl:acl": {
+          "ingress-acl-sets": {
+            "ingress-acl-set": [
+              {
+                "set-name": "USER_INBOUND_V4",
+                "type": "ACL_IPV4",
+                "config": {
+                  "set-name": "USER_INBOUND_V4",
+                  "type": "ACL_IPV4"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "Ethernet2",
+        "config": {
+          "name": "Ethernet2",
+          "description": "Connection to dist-sw-02 Ethernet48",
+          "type": "iana-if-type:ethernetCsmacd",
+          "mtu": 1500,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "openconfig-if-ip:ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.2.1",
+                      "config": {
+                        "ip": "10.0.2.1",
+                        "prefix-length": 30
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Ethernet3",
+        "config": {
+          "name": "Ethernet3",
+          "description": "BGP Peering to core-sw-01",
+          "type": "iana-if-type:ethernetCsmacd",
+          "mtu": 9000,
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "openconfig-if-ip:ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.2",
+                      "config": {
+                        "ip": "10.0.0.2",
+                        "prefix-length": 30
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Port-Channel10",
+        "config": {
+          "name": "Port-Channel10",
+          "description": "LAG to core-sw-01 for redundancy",
+          "type": "iana-if-type:ieee8023adLag",
+          "mtu": 9000,
+          "enabled": true
+        },
+        "openconfig-if-aggregate:aggregation": {
+          "config": {
+            "lag-type": "LACP"
+          }
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "openconfig-if-ip:ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "10.0.0.6",
+                      "config": {
+                        "ip": "10.0.0.6",
+                        "prefix-length": 30
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Loopback0",
+        "config": {
+          "name": "Loopback0",
+          "description": "BGP Router ID and OSPF Router ID",
+          "type": "iana-if-type:softwareLoopback",
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "openconfig-if-ip:ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "192.168.255.2",
+                      "config": {
+                        "ip": "192.168.255.2",
+                        "prefix-length": 32
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Vlan10",
+        "config": {
+          "name": "Vlan10",
+          "description": "Management VLAN SVI",
+          "type": "iana-if-type:l3ipvlan",
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "openconfig-if-ip:ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "192.168.10.2",
+                      "config": {
+                        "ip": "192.168.10.2",
+                        "prefix-length": 24
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "openconfig-acl:acl": {
+          "ingress-acl-sets": {
+            "ingress-acl-set": [
+              {
+                "set-name": "USER_INBOUND_V4",
+                "type": "ACL_IPV4",
+                "config": {
+                  "set-name": "USER_INBOUND_V4",
+                  "type": "ACL_IPV4"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "openconfig-vlan:vlans": {
+    "vlan": [
+      {
+        "vlan-id": 10,
+        "config": {
+          "vlan-id": 10,
+          "name": "Management",
+          "status": "ACTIVE"
+        }
+      },
+      {
+        "vlan-id": 20,
+        "config": {
+          "vlan-id": 20,
+          "name": "Users",
+          "status": "ACTIVE"
+        }
+      },
+      {
+        "vlan-id": 30,
+        "config": {
+          "vlan-id": 30,
+          "name": "Servers",
+          "status": "ACTIVE"
+        }
+      },
+      {
+        "vlan-id": 100,
+        "config": {
+          "vlan-id": 100,
+          "name": "DMZ",
+          "status": "ACTIVE"
+        }
+      },
+      {
+        "vlan-id": 4094,
+        "config": {
+          "vlan-id": 4094,
+          "name": "MLAG_PEER",
+          "status": "ACTIVE"
+        }
+      }
+    ]
+  },
+  "openconfig-network-instance:network-instances": {
+    "network-instance": [
+      {
+        "name": "default",
+        "config": {
+          "name": "default",
+          "type": "openconfig-network-instance-types:DEFAULT_INSTANCE"
+        },
+        "protocols": {
+          "protocol": [
+            {
+              "identifier": "openconfig-policy-types:BGP",
+              "name": "BGP",
+              "bgp": {
+                "global": {
+                  "config": {
+                    "as": 65001,
+                    "router-id": "192.168.255.2"
+                  }
+                },
+                "neighbors": {
+                  "neighbor": [
+                    {
+                      "neighbor-address": "10.0.0.1",
+                      "config": {
+                        "neighbor-address": "10.0.0.1",
+                        "peer-as": 65001,
+                        "description": "iBGP to core-sw-01"
+                      }
+                    },
+                    {
+                      "neighbor-address": "192.168.255.4",
+                      "config": {
+                        "neighbor-address": "192.168.255.4",
+                        "peer-as": 65001,
+                        "description": "iBGP to dist-sw-02"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "identifier": "openconfig-policy-types:OSPF",
+              "name": "ospf-1",
+              "ospfv2": {
+                "global":{
+                    "config":{
+                        "router-id": "192.168.255.2"
+                    }
+                },
+                "areas": {
+                  "area": [
+                    {
+                      "identifier": "0.0.0.0",
+                      "interfaces": {
+                        "interface": [
+                          { "id": "Ethernet1" },
+                          { "id": "Ethernet2" },
+                          { "id": "Ethernet3" },
+                          { "id": "Ethernet4" },
+                          { "id": "Port-Channel10" },
+                          { "id": "Loopback0" }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "openconfig-acl:acl": {
+    "acl-sets": {
+      "acl-set": [
+        {
+          "name": "USER_INBOUND_V4",
+          "type": "ACL_IPV4",
+          "config": {
+            "name": "USER_INBOUND_V4",
+            "type": "ACL_IPV4"
+          },
+          "acl-entries": {
+            "acl-entry": [
+              {
+                "sequence-id": 10,
+                "ipv4": {
+                  "config": {
+                    "source-address": "0.0.0.0/0",
+                    "destination-address": "192.168.30.0/24",
+                    "protocol": "openconfig-packet-match-types:TCP"
+                  }
+                },
+                "transport": {
+                    "config": {
+                        "destination-port": 22
+                    }
+                },
+                "actions": {
+                  "config": {
+                    "forwarding-action": "openconfig-acl:DROP"
+                  }
+                }
+              },
+              {
+                "sequence-id": 50,
+                "ipv4": {
+                  "config": {
+                    "source-address": "0.0.0.0/0",
+                    "destination-address": "0.0.0.0/0",
+                    "protocol": "openconfig-packet-match-types:IP"
+                  }
+                },
+                "actions": {
+                  "config": {
+                    "forwarding-action": "openconfig-acl:ACCEPT"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

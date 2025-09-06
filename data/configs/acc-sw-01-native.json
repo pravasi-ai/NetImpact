@@ -1,0 +1,122 @@
+{
+  "Cisco-IOS-XE-native:native": {
+    "interface": {
+      "GigabitEthernet": [
+        {
+          "name": "0/1",
+          "description": "Uplink to dist-rtr-01 Gi0/1/0",
+          "ip": {
+            "address": {
+              "primary": {
+                "address": "10.1.1.2",
+                "mask": "255.255.255.252"
+              }
+            },
+            "access-group": {
+              "in": {
+                "acl-name": "UPLINK_INBOUND"
+              }
+            }
+          }
+        }
+      ],
+      "FastEthernet": [
+        {
+          "name": "0/1",
+          "description": "User Workstation - John Doe",
+          "switchport": {
+            "access": {
+              "vlan": 20
+            },
+            "mode": "access"
+          }
+        }
+      ],
+      "Loopback": [
+        {
+          "name": 0,
+          "description": "OSPF Router ID",
+          "ip": {
+            "address": {
+              "primary": {
+                "address": "192.168.255.5",
+                "mask": "255.255.255.255"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "vlan": {
+      "vlan-list": [
+        {
+          "id": 10,
+          "name": "Management"
+        },
+        {
+          "id": 20,
+          "name": "Users"
+        },
+        {
+          "id": 30,
+          "name": "Servers"
+        },
+        {
+          "id": 200,
+          "name": "Guest"
+        },
+        {
+          "id": 999,
+          "name": "Native-Unused"
+        }
+      ]
+    },
+    "router": {
+      "ospf": {
+        "id": 1,
+        "router-id": "192.168.255.5",
+        "network": [
+          {
+            "ip": "10.1.1.0",
+            "wildcard": "0.0.0.3",
+            "area": "1.0.0.0"
+          },
+          {
+            "ip": "192.168.255.5",
+            "wildcard": "0.0.0.0",
+            "area": "1.0.0.0"
+          }
+        ]
+      }
+    },
+    "ip": {
+      "access-list": {
+        "extended": [
+          {
+            "name": "UPLINK_INBOUND",
+            "access-list-seq-rule": [
+              {
+                "sequence": 10,
+                "permit": {
+                  "ospf": {
+                    "any": true,
+                    "dest-any": true
+                  }
+                }
+              },
+              {
+                "sequence": 100,
+                "deny": {
+                  "ip": {
+                    "any": true,
+                    "dest-any": true
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

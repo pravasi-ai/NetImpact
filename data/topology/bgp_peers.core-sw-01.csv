@@ -1,0 +1,6 @@
+peer_ip,peer_hostname,peer_asn,peer_type,session_state,local_interface,peer_interface
+10.0.2.2,core-sw-02,65001,ibgp,established,TenGigabitEthernet1/1/1,Ethernet49
+192.168.1.11,dist-rtr-01,65001,ibgp,established,Vlan1,Vlan1
+192.168.1.21,dist-sw-02,65001,ibgp,established,Vlan1,Vlan1
+10.0.3.1,nxos-sw-02,65001,ibgp,established,GigabitEthernet1/0/12,Ethernet1/1
+10.0.5.1,iosxr-rtr-01,65001,ibgp,established,GigabitEthernet1/0/13,GigabitEthernet0/0/0/0

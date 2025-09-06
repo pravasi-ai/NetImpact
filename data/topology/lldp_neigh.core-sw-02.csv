@@ -1,0 +1,8 @@
+local_interface,neighbor_hostname,neighbor_interface,neighbor_description
+Ethernet1,dist-sw-02,Ethernet2,Connection to core-sw-02 Et1
+Ethernet2,dist-rtr-01,GigabitEthernet0/0/2,Connection to core-sw-02 Et2
+Ethernet49,core-sw-01,TenGigabitEthernet1/1/1,BGP Peering to core-sw-02
+PortChannel1,core-sw-01,PortChannel1,MLAG Peer Link
+Ethernet10,acc-sw-01,GigabitEthernet1/0/2,Uplink to core-sw-02
+Ethernet50,nxos-sw-01,Ethernet1/2,Connection to nxos-sw-01 Eth1/2
+Ethernet51,nxos-sw-02,Ethernet1/2,Connection to nxos-sw-02 Eth1/2

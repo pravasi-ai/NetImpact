@@ -1,0 +1,6 @@
+{
+  "ietf-yang-library:modules-state": {
+    "module-set-id": "empty-test",
+    "module": []
+  }
+}

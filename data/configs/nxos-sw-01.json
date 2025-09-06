@@ -1,0 +1,169 @@
+{
+  "openconfig-interfaces:interfaces": {
+    "interface": [
+      {
+        "name": "Ethernet1/1",
+        "config": {
+          "name": "Ethernet1/1",
+          "description": "Uplink to core-sw-01",
+          "type": "iana-if-type:ethernetCsmacd",
+          "enabled": true
+        },
+        "ethernet": {
+          "config": {
+            "aggregate-id": "port-channel10"
+          }
+        }
+      },
+      {
+        "name": "Ethernet1/2",
+        "config": {
+          "name": "Ethernet1/2",
+          "description": "Uplink to core-sw-02",
+          "type": "iana-if-type:ethernetCsmacd",
+          "enabled": true
+        },
+        "ethernet": {
+          "config": {
+            "aggregate-id": "port-channel10"
+          }
+        }
+      },
+      {
+        "name": "port-channel10",
+        "config": {
+          "name": "port-channel10",
+          "description": "Dual Uplinks to Core",
+          "type": "iana-if-type:ieee8023adLag",
+          "enabled": true
+        },
+        "openconfig-if-aggregate:aggregation": {
+          "config": {
+            "lag-type": "LACP"
+          }
+        },
+        "openconfig-vlan:switched-vlan": {
+          "config": {
+            "interface-mode": "TRUNK",
+            "trunk-vlans": [10, 20, 30]
+          }
+        }
+      },
+      {
+        "name": "Ethernet1/10",
+        "config": {
+          "name": "Ethernet1/10",
+          "description": "Server Connection - VLAN 20",
+          "type": "iana-if-type:ethernetCsmacd",
+          "enabled": true
+        },
+        "openconfig-vlan:switched-vlan": {
+          "config": {
+            "interface-mode": "ACCESS",
+            "access-vlan": 20
+          }
+        }
+      },
+      {
+        "name": "Ethernet1/20",
+        "config": {
+          "name": "Ethernet1/20",
+          "description": "Server Connection - VLAN 30",
+          "type": "iana-if-type:ethernetCsmacd",
+          "enabled": true
+        },
+        "openconfig-vlan:switched-vlan": {
+          "config": {
+            "interface-mode": "ACCESS",
+            "access-vlan": 30
+          }
+        }
+      },
+      {
+        "name": "Vlan10",
+        "config": {
+          "name": "Vlan10",
+          "description": "Management SVI",
+          "type": "iana-if-type:l3ipvlan",
+          "enabled": true
+        },
+        "subinterfaces": {
+          "subinterface": [
+            {
+              "index": 0,
+              "openconfig-if-ip:ipv4": {
+                "addresses": {
+                  "address": [
+                    {
+                      "ip": "192.168.10.31",
+                      "config": {
+                        "ip": "192.168.10.31",
+                        "prefix-length": 24
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "openconfig-vlan:vlans": {
+    "vlan": [
+      {
+        "vlan-id": 10,
+        "config": {
+          "vlan-id": 10,
+          "name": "Management",
+          "status": "ACTIVE"
+        }
+      },
+      {
+        "vlan-id": 20,
+        "config": {
+          "vlan-id": 20,
+          "name": "Production",
+          "status": "ACTIVE"
+        }
+      },
+      {
+        "vlan-id": 30,
+        "config": {
+          "vlan-id": 30,
+          "name": "Development",
+          "status": "ACTIVE"
+        }
+      }
+    ]
+  },
+  "openconfig-system:system": {
+    "config": {
+      "hostname": "nxos-sw-01",
+      "domain-name": "example.com"
+    },
+    "clock": {
+      "config": {
+        "timezone-name": "UTC"
+      }
+    },
+    "ntp": {
+      "config": {
+        "enabled": true
+      },
+      "servers": {
+        "server": [
+          {
+            "address": "192.168.1.100",
+            "config": {
+              "address": "192.168.1.100",
+              "version": 4,
+              "prefer": true
+            }
+          }
+        ]
+      }
+    }
+  }
+}

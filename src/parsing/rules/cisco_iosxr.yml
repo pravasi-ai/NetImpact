@@ -1,0 +1,171 @@
+os_type: cisco_iosxr
+version: 1.0
+
+# Defines regex patterns to parse Cisco IOS-XR configurations.
+# Each feature attribute is a list of patterns to try in order.
+# IOS-XR uses hierarchical configuration with 'end-group' blocks
+
+features:
+  hostname:
+    - pattern: '^hostname\s+(\S+)'
+      type: value_extraction
+
+  interfaces:
+    - parent: '^interface\s+([\w\/\.-]+)'
+      child_map:
+        description:
+          - pattern: '^\s+description\s+(.*)$'
+            type: value_extraction
+        ipv4_address:
+          - pattern: '^\s+ipv4\s+address\s+([\d\.]+)\s+([\d\.]+)'
+            type: value_extraction
+        ipv6_address:
+          - pattern: '^\s+ipv6\s+address\s+([\da-fA-F:\/]+)'
+            type: value_extraction
+        shutdown:
+          - pattern: '^\s+shutdown$'
+            type: presence
+        mtu:
+          - pattern: '^\s+mtu\s+(\d+)'
+            type: value_extraction
+        bandwidth:
+          - pattern: '^\s+bandwidth\s+(\d+)'
+            type: value_extraction
+        encapsulation:
+          - pattern: '^\s+encapsulation\s+([\w\.-]+)(?:\s+(\d+))?'
+            type: value_extraction
+
+  router_static:
+    - pattern: 'router\s+static'
+      type: presence
+    - parent: '^router\s+static'
+      child_map:
+        address_family:
+          - pattern: '^\s+address-family\s+(ipv4|ipv6)\s+(unicast)'
+            type: value_extraction
+        route:
+          - pattern: '^\s+([\d\.]+)/([\d]+)\s+([\d\.]+)'
+            type: value_extraction
+
+  static_routes:
+    - pattern: '^\s+([\d\.]+)/([\d]+)\s+([\d\.]+)'
+      type: value_extraction
+
+  ospf:
+    - parent: '^router\s+ospf\s+(\S+)'
+      child_map:
+        router_id:
+          - pattern: '^\s+router-id\s+([\d\.]+)'
+            type: value_extraction
+        area:
+          - pattern: '^\s+area\s+([\d\.]+)'
+            type: value_extraction
+        interface:
+          - pattern: '^\s+interface\s+([\w\/\.-]+)'
+            type: value_extraction
+        network:
+          - pattern: '^\s+network\s+(point-to-point|broadcast)'
+            type: value_extraction
+        cost:
+          - pattern: '^\s+cost\s+(\d+)'
+            type: value_extraction
+
+  bgp:
+    - parent: '^router\s+bgp\s+(\d+)'
+      child_map:
+        bgp_router_id:
+          - pattern: '^\s+bgp\s+router-id\s+([\d\.]+)'
+            type: value_extraction
+        address_family:
+          - pattern: '^\s+address-family\s+(ipv4|ipv6)\s+(unicast|multicast)'
+            type: value_extraction
+        neighbor:
+          - pattern: '^\s+neighbor\s+([\d\.]+)'
+            type: value_extraction
+        remote_as:
+          - pattern: '^\s+remote-as\s+(\d+)'
+            type: value_extraction
+        network:
+          - pattern: '^\s+network\s+([\d\.]+)/([\d]+)'
+            type: value_extraction
+        redistribute:
+          - pattern: '^\s+redistribute\s+(connected|static|ospf)'
+            type: value_extraction
+
+  acls:
+    - parent: '^ipv4\s+access-list\s+(\S+)'
+      child_map:
+        rule:
+          - pattern: '^\s*(\d+)?\s*(permit|deny)\s+(tcp|udp|ip|ospf|icmp)\s+(any|host\s+[\d\.]+|[\d\.\s/]+)\s+(any|host\s+[\d\.]+|[\d\.\s/]+)(?:\s+eq\s+(\S+))?'
+            type: value_extraction
+          - pattern: '^\s*(permit|deny)\s+(any|[\d\.\s/]+)'
+            type: value_extraction
+
+  prefix_lists:
+    - parent: '^ipv4\s+prefix-list\s+(\S+)'
+      child_map:
+        rule:
+          - pattern: '^\s*(\d+)?\s*(permit|deny)\s+([\d\.]+)/([\d]+)(?:\s+le\s+(\d+))?(?:\s+ge\s+(\d+))?'
+            type: value_extraction
+
+  route_policies:
+    - parent: '^route-policy\s+(\S+)'
+      child_map:
+        rule:
+          - pattern: '^\s+(if|then|else|endif|set|pass|drop)'
+            type: value_extraction
+
+  snmp:
+    - pattern: '^snmp-server\s+community\s+(\S+)\s+(RO|RW)'
+      type: value_extraction
+    - pattern: '^snmp-server\s+location\s+(.*)'
+      type: value_extraction
+    - pattern: '^snmp-server\s+contact\s+(.*)'
+      type: value_extraction
+
+  aaa:
+    - parent: '^aaa'
+      child_map:
+        authentication:
+          - pattern: '^\s+authentication\s+(\S+)'
+            type: value_extraction
+        authorization:
+          - pattern: '^\s+authorization\s+(\S+)'
+            type: value_extraction
+        accounting:
+          - pattern: '^\s+accounting\s+(\S+)'
+            type: value_extraction
+
+  mpls:
+    - parent: '^mpls'
+      child_map:
+        ldp:
+          - pattern: '^\s+ldp'
+            type: presence
+        te:
+          - pattern: '^\s+traffic-eng'
+            type: presence
+
+  line:
+    - parent: '^line\s+(console|vty)'
+      child_map:
+        exec_timeout:
+          - pattern: '^\s+exec-timeout\s+(\d+)\s+(\d+)'
+            type: value_extraction
+        transport_input:
+          - pattern: '^\s+transport\s+input\s+(ssh|telnet|all)'
+            type: value_extraction
+
+  logging:
+    - pattern: '^logging\s+([\d\.]+)'
+      type: value_extraction
+    - pattern: '^logging\s+console\s+(emergencies|alerts|critical|errors|warnings|notifications|informational|debugging)'
+      type: value_extraction
+
+  ntp:
+    - pattern: '^ntp\s+server\s+([\d\.]+)'
+      type: value_extraction
+
+  commit:
+    - pattern: '^commit$'
+      type: presence

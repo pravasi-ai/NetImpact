@@ -1,0 +1,5 @@
+local_interface,neighbor_hostname,neighbor_interface,neighbor_description
+GigabitEthernet1/0/1,core-sw-01,GigabitEthernet1/0/10,Uplink to core-sw-01
+GigabitEthernet1/0/2,core-sw-02,Ethernet10,Uplink to core-sw-02
+GigabitEthernet1/0/3,dist-rtr-01,GigabitEthernet0/0/4,Connection to dist-rtr-01
+GigabitEthernet1/0/4,dist-sw-02,Ethernet20,Connection to dist-sw-02

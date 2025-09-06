@@ -1,0 +1,10 @@
+hostname,vendor,os_type,os_version,platform,management_ip,role,serial_number
+core-sw-01,cisco,ios-xe,16.7.1,Catalyst 9500,192.168.1.10,core,FOC2134L0H1
+dist-rtr-01,cisco,ios-xe,17.3.1,ISR 4451,192.168.1.11,distribution,FGL2134L0H2
+acc-sw-01,cisco,ios,15.2,Catalyst 2960X,192.168.1.12,access,FOC2134L0H3
+core-sw-02,arista,eos,4.21.0F,DCS-7280SR-48C6,192.168.1.20,core,SSJ1234567890
+dist-sw-02,arista,eos,4.21.0F,DCS-7050SX-64,192.168.1.21,distribution,SSJ1234567891
+nxos-sw-01,cisco,nx-os,9.3.8,Nexus 9300,192.168.1.31,access,SSI2234567890
+nxos-sw-02,cisco,nx-os,9.3.8,Nexus 9500,192.168.1.32,distribution,SSI2234567891
+iosxr-rtr-01,cisco,ios-xr,7.3.2,ASR 9006,192.168.1.41,distribution,FOX2234567890
+iosxr-rtr-02,cisco,ios-xr,7.3.2,ASR 9001,192.168.1.42,edge,FOX2234567891

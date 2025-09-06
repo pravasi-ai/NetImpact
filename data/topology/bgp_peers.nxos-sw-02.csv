@@ -1,0 +1,3 @@
+peer_ip,peer_hostname,peer_asn,peer_type,session_state,local_interface,peer_interface
+10.0.3.2,core-sw-01,65001,ibgp,established,Ethernet1/1,GigabitEthernet1/0/12
+10.0.4.2,core-sw-02,65001,ibgp,established,Ethernet1/2,Ethernet51

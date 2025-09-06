@@ -1,0 +1,26 @@
+[project]
+name = "netopo-2-claude"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.2.1",
+    "fastapi>=0.116.1",
+    "neo4j>=5.28.2",
+    "python-dotenv>=1.1.1",
+    "rich>=14.1.0",
+    "uvicorn>=0.35.0",
+    "xmltodict>=0.14.2",
+    "yangson>=1.6.3",
+    "pyyaml>=6.0.1",
+    "ciscoconfparse2<=0.8.34",
+    "pyang>=2.6.1",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+]

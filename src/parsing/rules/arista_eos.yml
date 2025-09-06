@@ -1,0 +1,104 @@
+os_type: arista_eos
+version: 1.1
+
+# Defines regex patterns to parse Arista EOS configurations.
+# Each feature attribute is a list of patterns to try in order.
+
+features:
+  hostname:
+    - pattern: '^hostname\s+(\S+)'
+      type: value_extraction
+
+  vlans:
+    - parent: '^vlan\s+(\d+)'
+      child_map:
+        name:
+          - pattern: '^\s+name\s+(.*)$'
+            type: value_extraction
+
+  interfaces:
+    - parent: '^interface\s+([\w\/\.-]+)'
+      child_map:
+        description:
+          - pattern: '^\s+description\s+(.*)$'
+            type: value_extraction
+        no_switchport:
+          - pattern: '^\s+no\s+switchport$'
+            type: presence
+        ip_address:
+          - pattern: '^\s+ip\s+address\s+([\d\.]+\/\d+)'
+            type: value_extraction
+        mtu:
+          - pattern: '^\s+mtu\s+(\d+)'
+            type: value_extraction
+        channel_group:
+          - pattern: '^\s+channel-group\s+(\d+)\s+mode\s+(\S+)'
+            type: value_extraction
+        ip_access_group_in:
+          - pattern: '^\s+ip\s+access-group\s+(\S+)\s+in$'
+            type: value_extraction
+        ip_helper_address:
+          - pattern: '^\s+ip\s+helper-address\s+([\d\.]+)'
+            type: value_extraction
+
+  bgp:
+    - parent: '^router\s+bgp\s+(\d+)'
+      child_map:
+        router_id:
+          - pattern: '^\s+router-id\s+([\d\.]+)'
+            type: value_extraction
+        neighbor_remote_as:
+          - pattern: '^\s+neighbor\s+([\d\.]+)\s+remote-as\s+(\d+)'
+            type: value_extraction
+        network:
+          - pattern: '^\s+network\s+([\d\.]+\/\d+)'
+            type: value_extraction
+        neighbor_description:
+          - pattern: '^\s+neighbor\s+([\d\.]+)\s+description\s+(.*)'
+            type: value_extraction
+        neighbor_update_source:
+          - pattern: '^\s+neighbor\s+([\d\.]+)\s+update-source\s+(\S+)'
+            type: value_extraction
+        neighbor_next_hop_self:
+          - pattern: '^\s+neighbor\s+([\d\.]+)\s+next-hop-self'
+            type: value_extraction
+        neighbor_activate:
+          - pattern: '^\s+neighbor\s+([\d\.]+)\s+activate'
+            type: value_extraction
+        address_family_network:
+          - pattern: '^\s+network\s+([\d\.]+\/\d+)'
+            type: value_extraction
+
+  static_routes:
+    - pattern: '^ip\s+route\s+([\d\.]+\/\d+)\s+([\d\.]+)'
+      type: value_extraction
+
+  ospf:
+    - parent: '^router\s+ospf\s+(\d+)'
+      child_map:
+        router_id:
+          - pattern: '^\s+router-id\s+([\d\.]+)'
+            type: value_extraction
+        passive_interface:
+          - pattern: '^\s+passive-interface\s+(\S+)'
+            type: value_extraction
+        no_passive_interface:
+          - pattern: '^\s+no\s+passive-interface\s+(\S+)'
+            type: value_extraction
+        network_area:
+          - pattern: '^\s+network\s+([\d\.]+\/\d+)\s+area\s+([\d\.]+)'
+            type: value_extraction
+
+  acls:
+    - parent: '^ip\s+access-list\s+(\S+)'
+      child_map:
+        rule:
+          - pattern: '^\s*(\d+)\s+(permit|deny)\s+(tcp|udp|ip)\s+(any|host\s+\S+|[\d\.\/]+)\s+(any|host\s+\S+|[\d\.\/]+)(?:\s+eq\s+(\S+))?'
+            type: value_extraction
+
+  management_api:
+    - parent: '^management\s+api\s+(\S+)'
+      child_map:
+        shutdown:
+          - pattern: '^\s+no\s+shutdown$'
+            type: presence

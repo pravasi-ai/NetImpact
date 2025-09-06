@@ -1,0 +1,161 @@
+os_type: cisco_nxos
+version: 1.0
+
+# Defines regex patterns to parse Cisco NX-OS configurations.
+# Each feature attribute is a list of patterns to try in order.
+
+features:
+  hostname:
+    - pattern: '^hostname\s+(\S+)'
+      type: value_extraction
+
+  vlans:
+    - parent: '^vlan\s+(\d+)'
+      child_map:
+        name:
+          - pattern: '^\s+name\s+(.*)$'
+            type: value_extraction
+        state:
+          - pattern: '^\s+state\s+(active|suspend)$'
+            type: value_extraction
+
+  interfaces:
+    - parent: '^interface\s+([\w\/\.-]+)'
+      child_map:
+        description:
+          - pattern: '^\s+description\s+(.*)$'
+            type: value_extraction
+        ip_address:
+          - pattern: '^\s+ip\s+address\s+([\d\.]+)\/(\d+)'
+            type: value_extraction
+        switchport_mode:
+          - pattern: '^\s+switchport\s+mode\s+(access|trunk)'
+            type: value_extraction
+        switchport_access_vlan:
+          - pattern: '^\s+switchport\s+access\s+vlan\s+(\d+)'
+            type: value_extraction
+        switchport_trunk_allowed_vlan:
+          - pattern: '^\s+switchport\s+trunk\s+allowed\s+vlan\s+([\d,-]+)'
+            type: value_extraction
+        switchport_trunk_native_vlan:
+          - pattern: '^\s+switchport\s+trunk\s+native\s+vlan\s+(\d+)'
+            type: value_extraction
+        shutdown:
+          - pattern: '^\s+shutdown$'
+            type: presence
+        no_switchport:
+          - pattern: '^\s+no\s+switchport$'
+            type: presence
+        channel_group:
+          - pattern: '^\s+channel-group\s+(\d+)\s+mode\s+(active|passive|on)'
+            type: value_extraction
+        vpc:
+          - pattern: '^\s+vpc\s+(\d+)'
+            type: value_extraction
+        ip_ospf_area:
+          - pattern: '^\s+ip\s+router\s+ospf\s+\S+\s+area\s+([\d\.]+)'
+            type: value_extraction
+        hsrp_group:
+          - pattern: '^\s+hsrp\s+(\d+)'
+            type: value_extraction
+
+  port_channels:
+    - parent: '^interface\s+(port-channel\d+)'
+      child_map:
+        description:
+          - pattern: '^\s+description\s+(.*)$'
+            type: value_extraction
+        switchport_mode:
+          - pattern: '^\s+switchport\s+mode\s+(trunk|access)'
+            type: value_extraction
+        vpc:
+          - pattern: '^\s+vpc\s+(\d+)'
+            type: value_extraction
+        lacp_mode:
+          - pattern: '^\s+lacp\s+mode\s+(active|passive)'
+            type: value_extraction
+
+  vpc_config:
+    - parent: '^vpc\s+domain\s+(\d+)'
+      child_map:
+        role_priority:
+          - pattern: '^\s+role\s+priority\s+(\d+)'
+            type: value_extraction
+        peer_keepalive:
+          - pattern: '^\s+peer-keepalive\s+destination\s+([\d\.]+)'
+            type: value_extraction
+        peer_link:
+          - pattern: '^\s+peer-link'
+            type: presence
+
+  ospf:
+    - parent: '^router\s+ospf\s+(\S+)'
+      child_map:
+        router_id:
+          - pattern: '^\s+router-id\s+([\d\.]+)'
+            type: value_extraction
+        area_authentication:
+          - pattern: '^\s+area\s+([\d\.]+)\s+authentication'
+            type: value_extraction
+        passive_interface:
+          - pattern: '^\s+passive-interface\s+(\S+)'
+            type: value_extraction
+
+  bgp:
+    - parent: '^router\s+bgp\s+(\d+)'
+      child_map:
+        router_id:
+          - pattern: '^\s+router-id\s+([\d\.]+)'
+            type: value_extraction
+        neighbor_remote_as:
+          - pattern: '^\s+neighbor\s+([\d\.]+)\s+remote-as\s+(\d+)'
+            type: value_extraction
+        address_family:
+          - pattern: '^\s+address-family\s+(ipv4|ipv6)\s+(unicast|multicast)'
+            type: value_extraction
+        network:
+          - pattern: '^\s+network\s+([\d\.]+)\/(\d+)'
+            type: value_extraction
+
+  static_routes:
+    - pattern: 'ip\s+route\s+(?P<prefix>[\d\.]+)\/(?P<mask_len>\d+)\s+(?P<next_hop>[\d\.]+)'
+      type: value_extraction
+    - pattern: 'ip\s+route\s+(?P<prefix>[\d\.]+)\s+(?P<mask>[\d\.]+)\s+(?P<next_hop>[\d\.]+)'
+      type: value_extraction
+
+  acls:
+    - parent: '^ip\s+access-list\s+(\S+)'
+      child_map:
+        rule:
+          - pattern: '^\s*(\d+)?\s*(permit|deny)\s+(tcp|udp|ip|ospf|icmp)\s+(any|host\s+\S+|[\d\.\s/]+)\s+(any|host\s+\S+|[\d\.\s/]+)(?:\s+eq\s+(\S+))?(?:\s+log)?'
+            type: value_extraction
+          - pattern: '^\s*(permit|deny)\s+(any|host\s+[\d\.]+)(?:\s+log)?'
+            type: value_extraction
+
+  snmp:
+    - pattern: '^snmp-server\s+community\s+(\S+)\s+(ro|rw)(?:\s+(\S+))?'
+      type: value_extraction
+    - pattern: '^snmp-server\s+location\s+(.*)'
+      type: value_extraction
+    - pattern: '^snmp-server\s+contact\s+(.*)'
+      type: value_extraction
+
+  features:
+    - pattern: '^feature\s+(\S+)'
+      type: value_extraction
+
+  system_settings:
+    - pattern: '^system\s+default\s+switchport$'
+      type: presence
+    - pattern: '^system\s+default\s+switchport\s+shutdown$'
+      type: presence
+
+  line:
+    - parent: '^line\s+(console|vty)'
+      child_map:
+        exec_timeout:
+          - pattern: '^\s+exec-timeout\s+(\d+)\s+(\d+)'
+            type: value_extraction
+        session_limit:
+          - pattern: '^\s+session-limit\s+(\d+)'
+            type: value_extraction

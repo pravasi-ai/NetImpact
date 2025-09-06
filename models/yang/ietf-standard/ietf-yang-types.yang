@@ -1,0 +1,393 @@
+module ietf-yang-types {
+  namespace "urn:ietf:params:xml:ns:yang:ietf-yang-types";
+  prefix "yang";
+
+  organization
+    "IETF NETMOD (NETCONF Data Modeling Language) Working Group";
+
+  contact
+    "WG Web:   <http://tools.ietf.org/wg/netmod/>
+     WG List:  <mailto:netmod@ietf.org>
+
+     WG Chair: David Kessens
+               <mailto:david.kessens@nsn.com>
+
+     WG Chair: Juergen Schoenwaelder
+               <mailto:j.schoenwaelder@jacobs-university.de>
+
+     Editor:   Juergen Schoenwaelder
+               <mailto:j.schoenwaelder@jacobs-university.de>";
+
+  description
+    "This module contains a collection of generally useful derived
+     YANG data types.
+
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in RFC 2119.
+
+     Copyright (c) 2013 IETF Trust and the persons identified as
+     authors of the code. All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject to
+     the license terms contained in, the Simplified BSD License set
+     forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (http://trustee.ietf.org/license-info).
+
+     This version of this YANG module is part of RFC 6991; see the
+     RFC itself for full legal notices.";
+
+  revision 2013-07-15 {
+    description
+      "Initial revision.";
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
+
+  typedef counter32 {
+    type uint32;
+    description
+      "The counter32 type is used for counters that are defined in
+       SMIv2.  It has the same range and behavior as the SMIv2
+       Counter32.
+
+       That is, the counter32 type has a value range of 0 to 2^32-1
+       and increments until it reaches a maximum value, when it
+       wraps around and starts increasing again from zero.
+
+       Counters are extensively used in network management to count
+       the number of occurrences of some event.  When a counter
+       reaches its maximum value, it wraps around and restarts from
+       a minimum value.  The SNMP and SMI specifications recommend
+       that a manager samples a counter twice during a sampling
+       interval and then computes the difference.
+
+       The counter32 type is appropriate for counters that are
+       unlikely to reach their maximum value in the period between
+       two consecutive samples performed by a network management
+       system.  If this is not the case, then the counter64 type
+       should be used instead.
+
+       The YANG 'units' statement should be used to specify the
+       units of the counter (e.g., 'packets', 'octets').";
+    reference
+      "RFC 2578: Structure of Management Information Version 2 (SMIv2).
+       RFC 2579: Textual Conventions for SMIv2.";
+  }
+
+  typedef counter64 {
+    type uint64;
+    description
+      "The counter64 type is used for counters that are defined in
+       SMIv2.  It has the same range and behavior as the SMIv2
+       Counter64.
+
+       That is, the counter64 type has a value range of 0 to 2^64-1
+       and increments until it reaches a maximum value, when it
+       wraps around and starts increasing again from zero.
+
+       Counters are extensively used in network management to count
+       the number of occurrences of some event.  When a counter
+       reaches its maximum value, it wraps around and restarts from
+       a minimum value.  The SNMP and SMI specifications recommend
+       that a manager samples a counter twice during a sampling
+       interval and then computes the difference.
+
+       The counter64 type is appropriate for counters that are
+       unlikely to reach their maximum value in the period between
+       two consecutive samples performed by a network management
+       system.  If this is not the case, then the counter64 type
+       should be used instead.
+
+       The YANG 'units' statement should be used to specify the
+       units of the counter (e.g., 'packets', 'octets').";
+    reference
+      "RFC 2578: Structure of Management Information Version 2 (SMIv2).
+       RFC 2579: Textual Conventions for SMIv2.";
+  }
+
+  typedef zero-based-counter32 {
+    type uint32;
+    description
+      "The zero-based-counter32 type is used for counters that are
+       defined in SMIv2. It has the same range and behavior as the
+       SMIv2 ZeroBasedCounter32.
+
+       That is, the zero-based-counter32 type has a value range of
+       0 to 2^32-1. Its initial value is 0, and it increments until
+       it reaches a maximum value, when it wraps around and starts
+       increasing again from zero.
+
+       The YANG 'units' statement should be used to specify the
+       units of the counter (e.g., 'packets', 'octets').";
+    reference
+      "RFC 3593: Textual Conventions for SMIv2.";
+  }
+
+  typedef zero-based-counter64 {
+    type uint64;
+    description
+      "The zero-based-counter64 type is used for counters that are
+       defined in SMIv2. It has the same range and behavior as the
+       SMIv2 ZeroBasedCounter64.
+
+       That is, the zero-based-counter64 type has a value range of
+       0 to 2^64-1. Its initial value is 0, and it increments until
+       it reaches a maximum value, when it wraps around and starts
+       increasing again from zero.
+
+       The YANG 'units' statement should be used to specify the
+       units of the counter (e.g., 'packets', 'octets').";
+    reference
+      "RFC 3593: Textual Conventions for SMIv2.";
+  }
+
+  typedef gauge32 {
+    type uint32;
+    description
+      "The gauge32 type is used for gauges that are defined in SMIv2.
+       It has the same range and behavior as the SMIv2 Gauge32.
+
+       That is, the gauge32 type has a value range of 0 to 2^32-1.
+       A gauge is a non-negative integer, which may increase or
+       decrease, but which latches at a maximum value.  Once a gauge
+       reaches its maximum value, it remains at that value until it
+       is reset to a smaller value.
+
+       The YANG 'units' statement should be used to specify the
+       units of the gauge (e.g., 'bytes', 'messages').";
+    reference
+      "RFC 2578: Structure of Management Information Version 2 (SMIv2).
+       RFC 2579: Textual Conventions for SMIv2.";
+  }
+
+  typedef gauge64 {
+    type uint64;
+    description
+      "The gauge64 type is used for gauges that are defined in SMIv2.
+       It has the same range and behavior as the SMIv2 Gauge64.
+
+       That is, the gauge64 type has a value range of 0 to 2^64-1.
+       A gauge is a non-negative integer, which may increase or
+       decrease, but which latches at a maximum value.  Once a gauge
+       reaches its maximum value, it remains at that value until it
+       is reset to a smaller value.
+
+       The YANG 'units' statement should be used to specify the
+       units of the gauge (e.g., 'bytes', 'messages').";
+    reference
+      "RFC 2578: Structure of Management Information Version 2 (SMIv2).
+       RFC 2579: Textual Conventions for SMIv2.";
+  }
+
+  typedef object-identifier {
+    type string {
+      pattern '(([0-1](\.[0-9]+)*)|(2(\.[0-9]+)+))';
+    }
+    description
+      "The object-identifier type is used for object identifiers that
+       are defined in SMIv2.  It has the same range and behavior as
+       the SMIv2 Object Identifier.
+
+       That is, the object-identifier type has a value range of any
+       valid SMIv2 object identifier.
+
+       The YANG 'units' statement should be used to specify the
+       units of the object identifier (e.g., 'iso.org.dod.internet.
+       mgmt.mib-2.interfaces').";
+    reference
+      "RFC 2578: Structure of Management Information Version 2 (SMIv2).
+       RFC 2579: Textual Conventions for SMIv2.";
+  }
+
+  typedef object-identifier-string {
+    type string {
+      pattern '(([0-1](\.[0-9]+)*)|(2(\.[0-9]+)+))';
+    }
+    description
+      "The object-identifier-string type is used to represent an
+       SMIv2 object identifier in string form.
+
+       The object-identifier-string type has a value range of any
+       valid SMIv2 object identifier.
+
+       The YANG 'units' statement should be used to specify the
+       units of the object identifier (e.g., 'iso.org.dod.internet.
+       mgmt.mib-2.interfaces').";
+    reference
+      "RFC 2578: Structure of Management Information Version 2 (SMIv2).
+       RFC 2579: Textual Conventions for SMIv2.";
+  }
+
+  typedef date-and-time {
+    type string {
+      pattern '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})';
+    }
+    description
+      "The date-and-time type is used to represent a date and time.
+       The format is a subset of the date and time format specified
+       in XML Schema Part 2: Datatypes.
+
+       The lexical representation is the canonical lexical
+       representation of xs:dateTime, which is:
+
+          'YYYY-MM-DDTHH:MM:SS[Z | (+|-)HH:MM]'
+
+       where 'Z' indicates Coordinated Universal Time (UTC).
+       The time zone offset from UTC is indicated by
+       '+HH:MM' or '-HH:MM'.  The seconds part (SS) may be
+       a decimal number with any number of fractional digits.
+
+       This datatype is not meant for time periods (e.g., 'P1Y2M3DT10H30M'
+       as in ISO 8601).
+
+       The date-and-time type has a value range of any valid date and
+       time.
+
+       The YANG 'units' statement should be used to specify the
+       units of the date and time (e.g., 'seconds since epoch').";
+    reference
+      "RFC 3339: Date and Time on the Internet: Timestamps.
+       W3C Recommendation 'XML Schema Part 2: Datatypes Second
+       Edition', 28 October 2004.";
+  }
+
+  typedef timestamptz {
+    type string {
+      pattern '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})';
+    }
+    description
+      "The timestamptz type is used to represent a date and time with
+       time zone. The format is a subset of the date and time format
+       specified in XML Schema Part 2: Datatypes.
+
+       The lexical representation is the canonical lexical
+       representation of xs:dateTime, which is:
+
+          'YYYY-MM-DDTHH:MM:SS[Z | (+|-)HH:MM]'
+
+       where 'Z' indicates Coordinated Universal Time (UTC).
+       The time zone offset from UTC is indicated by
+       '+HH:MM' or '-HH:MM'.  The seconds part (SS) may be
+       a decimal number with any number of fractional digits.
+
+       This datatype is not meant for time periods (e.g., 'P1Y2M3DT10H30M'
+       as in ISO 8601).
+
+       The timestamptz type has a value range of any valid date and
+       time.
+
+       The YANG 'units' statement should be used to specify the
+       units of the date and time (e.g., 'seconds since epoch').";
+    reference
+      "RFC 3339: Date and Time on the Internet: Timestamps.
+       W3C Recommendation 'XML Schema Part 2: Datatypes Second
+       Edition', 28 October 2004.";
+  }
+
+  typedef phys-address {
+    type string {
+      pattern '[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5}';
+    }
+    description
+      "The phys-address type is used to represent a media access
+       control (MAC) address.  It has the same range and behavior as
+       the SMIv2 PhysAddress.
+
+       That is, the phys-address type has a value range of any valid
+       MAC address.
+
+       The YANG 'units' statement should be used to specify the
+       units of the MAC address (e.g., 'bytes').";
+    reference
+      "RFC 2578: Structure of Management Information Version 2 (SMIv2).
+       RFC 2579: Textual Conventions for SMIv2.";
+  }
+
+  typedef mac-address {
+    type string {
+      pattern '[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5}';
+    }
+    description
+      "The mac-address type is used to represent a media access
+       control (MAC) address.  It has the same range and behavior as
+       the SMIv2 MacAddress.
+
+       That is, the mac-address type has a value range of any valid
+       MAC address.
+
+       The YANG 'units' statement should be used to specify the
+       units of the MAC address (e.g., 'bytes').";
+    reference
+      "RFC 2578: Structure of Management Information Version 2 (SMIv2).
+       RFC 2579: Textual Conventions for SMIv2.";
+  }
+
+  typedef dotted-quad {
+    type string {
+      pattern '(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])';
+    }
+    description
+      "The dotted-quad type is used to represent an IPv4 address in
+       dotted-quad format.
+
+       The dotted-quad type has a value range of any valid IPv4
+       address.
+
+       The YANG 'units' statement should be used to specify the
+       units of the IPv4 address (e.g., 'bytes').";
+    reference
+      "RFC 791: Internet Protocol.
+       RFC 1122: Requirements for Internet Hosts -- Communication Layers.";
+  }
+
+  typedef hex-string {
+    type string {
+      pattern '([0-9a-fA-F]{2})*';
+    }
+    description
+      "The hex-string type is used to represent an arbitrary binary
+       string in hexadecimal format.
+
+       The hex-string type has a value range of any valid hexadecimal
+       string.
+
+       The YANG 'units' statement should be used to specify the
+       units of the hexadecimal string (e.g., 'bytes').";
+  }
+
+  typedef uuid {
+    type string {
+      pattern '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}';
+    }
+    description
+      "The uuid type is used to represent a Universally Unique
+       Identifier (UUID).
+
+       The uuid type has a value range of any valid UUID.
+
+       The YANG 'units' statement should be used to specify the
+       units of the UUID (e.g., 'bytes').";
+    reference
+      "RFC 4122: A Universally Unique IDentifier (UUID) URN Namespace.";
+  }
+
+  typedef yang-identifier {
+    type string {
+      pattern '[a-zA-Z_][a-zA-Z0-9\-_.]*';
+    }
+    description
+      "The yang-identifier type is used to represent a YANG identifier.
+
+       The yang-identifier type has a value range of any valid YANG
+       identifier.
+
+       The YANG 'units' statement should be used to specify the
+       units of the YANG identifier (e.g., 'bytes').";
+    reference
+      "RFC 6020: YANG - A Data Modeling Language for the Network
+       Configuration Protocol (NETCONF).";
+  }
+}

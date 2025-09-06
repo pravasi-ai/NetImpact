@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<network_device>
+  <device_info>
+    <hostname>acc-sw-01</hostname>
+    <platform>Cisco Catalyst 2960-X</platform>
+    <os_version>IOS 15.2(4)E7</os_version>
+    <serial_number>FOC1947X0J1</serial_number>
+    <management_ip>192.168.1.12</management_ip>
+  </device_info>
+  
+  <interfaces>
+    <interface name="GigabitEthernet0/1">
+      <description>Uplink to dist-rtr-01 Gi0/1/0</description>
+      <type>routed</type>
+      <ip_address>10.1.1.2/30</ip_address>
+      <status>up</status>
+      <ospf_area>1.0.0.0</ospf_area>
+      <ospf_cost>20</ospf_cost>
+      <access_group_in>UPLINK_INBOUND</access_group_in>
+    </interface>
+    
+    <interface name="GigabitEthernet0/2">
+      <description>Trunk to core switches</description>
+      <type>trunk</type>
+      <status>up</status>
+      <allowed_vlans>10,20,30,200</allowed_vlans>
+      <native_vlan>999</native_vlan>
+      <spanning_tree_portfast>false</spanning_tree_portfast>
+    </interface>
+    
+    <interface name="FastEthernet0/1">
+      <description>User Workstation - John Doe</description>
+      <type>access</type>
+      <vlan>20</vlan>
+      <status>up</status>
+      <spanning_tree_portfast>true</spanning_tree_portfast>
+      <spanning_tree_bpduguard>true</spanning_tree_bpduguard>
+      <port_security>
+        <enabled>true</enabled>
+        <max_addresses>3</max_addresses>
+        <violation_action>restrict</violation_action>
+        <aging_time>300</aging_time>
+      </port_security>
+    </interface>
+    
+    <interface name="FastEthernet0/2">
+      <description>User Workstation - Jane Smith</description>
+      <type>access</type>
+      <vlan>20</vlan>
+      <status>up</status>
+      <spanning_tree_portfast>true</spanning_tree_portfast>
+      <spanning_tree_bpduguard>true</spanning_tree_bpduguard>
+      <port_security>
+        <enabled>true</enabled>
+        <max_addresses>3</max_addresses>
+        <violation_action>restrict</violation_action>
+        <aging_time>300</aging_time>
+      </port_security>
+    </interface>
+    
+    <interface name="FastEthernet0/3">
+      <description>Server - File Server 01</description>
+      <type>access</type>
+      <vlan>30</vlan>
+      <status>up</status>
+      <spanning_tree_portfast>false</spanning_tree_portfast>
+      <port_security>
+        <enabled>true</enabled>
+        <max_addresses>1</max_addresses>
+        <violation_action>shutdown</violation_action>
+      </port_security>
+    </interface>
+    
+    <interface name="FastEthernet0/4">
+      <description>Server - Database Server 01</description>
+      <type>access</type>
+      <vlan>30</vlan>
+      <status>up</status>
+      <spanning_tree_portfast>false</spanning_tree_portfast>
+      <port_security>
+        <enabled>true</enabled>
+        <max_addresses>1</max_addresses>
+        <violation_action>shutdown</violation_action>
+      </port_security>
+    </interface>
+    
+    <interface name="FastEthernet0/5">
+      <description>Guest Wireless AP</description>
+      <type>access</type>
+      <vlan>200</vlan>
+      <status>up</status>
+      <spanning_tree_portfast>true</spanning_tree_portfast>
+      <spanning_tree_bpduguard>true</spanning_tree_bpduguard>
+    </interface>
+    
+    <interface name="FastEthernet0/6">
+      <description>Management - Network Printer</description>
+      <type>access</type>
+      <vlan>10</vlan>
+      <status>up</status>
+      <spanning_tree_portfast>true</spanning_tree_portfast>
+    </interface>
+    
+    <interface name="FastEthernet0/7">
+      <description>Spare - Available</description>
+      <type>access</type>
+      <vlan>999</vlan>
+      <status>down</status>
+      <shutdown>true</shutdown>
+    </interface>
+    
+    <interface name="FastEthernet0/8">
+      <description>Spare - Available</description>
+      <type>access</type>
+      <vlan>999</vlan>
+      <status>down</status>
+      <shutdown>true</shutdown>
+    </interface>
+    
+    <interface name="Loopback0">
+      <description>OSPF Router ID</description>
+      <type>loopback</type>
+      <ip_address>192.168.255.5/32</ip_address>
+      <status>up</status>
+      <ospf_area>1.0.0.0</ospf_area>
+      <advertise_ospf>true</advertise_ospf>
+    </interface>
+    
+    <interface name="Vlan10">
+      <description>Management VLAN SVI</description>
+      <type>svi</type>
+      <ip_address>192.168.10.5/24</ip_address>
+      <status>up</status>
+      <vrf>management</vrf>
+      <helper_address>192.168.10.100</helper_address>
+    </interface>
+    
+    <interface name="Vlan20">
+      <description>User VLAN SVI</description>
+      <type>svi</type>
+      <ip_address>192.168.20.5/24</ip_address>
+      <status>up</status>
+      <access_group_in>USER_INBOUND</access_group_in>
+      <helper_address>192.168.10.100</helper_address>
+    </interface>
+    
+    <interface name="Vlan30">
+      <description>Server VLAN SVI</description>
+      <type>svi</type>
+      <ip_address>192.168.30.5/24</ip_address>
+      <status>up</status>
+      <access_group_in>SERVER_INBOUND</access_group_in>
+    </interface>
+  </interfaces>
+  
+  <vlans>
+    <vlan id="10">
+      <name>Management</name>
+      <status>active</status>
+      <ports>
+        <access_ports>
+          <port>FastEthernet0/6</port>
+        </access_ports>
+        <trunk_ports>
+          <port>GigabitEthernet0/2</port>
+        </trunk_ports>
+      </ports>
+    </vlan>
+    
+    <vlan id="20">
+      <name>Users</name>
+      <status>active</status>
+      <ports>
+        <access_ports>
+          <port>FastEthernet0/1</port>
+          <port>FastEthernet0/2</port>
+        </access_ports>
+        <trunk_ports>
+          <port>GigabitEthernet0/2</port>
+        </trunk_ports>
+      </ports>
+    </vlan>
+    
+    <vlan id="30">
+      <name>Servers</name>
+      <status>active</status>
+      <ports>
+        <access_ports>
+          <port>FastEthernet0/3</port>
+          <port>FastEthernet0/4</port>
+        </access_ports>
+        <trunk_ports>
+          <port>GigabitEthernet0/2</port>
+        </trunk_ports>
+      </ports>
+    </vlan>
+    
+    <vlan id="200">
+      <name>Guest</name>
+      <status>active</status>
+      <ports>
+        <access_ports>
+          <port>FastEthernet0/5</port>
+        </access_ports>
+        <trunk_ports>
+          <port>GigabitEthernet0/2</port>
+        </trunk_ports>
+      </ports>
+    </vlan>
+    
+    <vlan id="999">
+      <name>Native-Unused</name>
+      <status>active</status>
+      <ports>
+        <access_ports>
+          <port>FastEthernet0/7</port>
+          <port>FastEthernet0/8</port>
+        </access_ports>
+      </ports>
+    </vlan>
+  </vlans>
+  
+  <access_lists>
+    <access_list name="UPLINK_INBOUND" type="extended">
+      <rule sequence="10">
+        <action>permit</action>
+        <protocol>ospf</protocol>
+        <source>any</source>
+        <destination>any</destination>
+      </rule>
+      <rule sequence="20">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>10.1.0.0 0.0.255.255</source>
+        <destination>any</destination>
+        <destination_port>eq 22</destination_port>
+      </rule>
+      <rule sequence="30">
+        <action>permit</action>
+        <protocol>udp</protocol>
+        <source>10.1.0.0 0.0.255.255</source>
+        <destination>any</destination>
+        <destination_port>eq 161</destination_port>
+      </rule>
+      <rule sequence="100">
+        <action>deny</action>
+        <protocol>ip</protocol>
+        <source>any</source>
+        <destination>any</destination>
+        <log>true</log>
+      </rule>
+    </access_list>
+    
+    <access_list name="USER_INBOUND" type="extended">
+      <rule sequence="10">
+        <action>deny</action>
+        <protocol>tcp</protocol>
+        <source>any</source>
+        <destination>192.168.30.0 0.0.0.255</destination>
+        <destination_port>eq 22</destination_port>
+      </rule>
+      <rule sequence="20">
+        <action>deny</action>
+        <protocol>tcp</protocol>
+        <source>any</source>
+        <destination>192.168.30.0 0.0.0.255</destination>
+        <destination_port>eq 23</destination_port>
+      </rule>
+      <rule sequence="30">
+        <action>deny</action>
+        <protocol>tcp</protocol>
+        <source>any</source>
+        <destination>192.168.30.0 0.0.0.255</destination>
+        <destination_port>eq 3389</destination_port>
+      </rule>
+      <rule sequence="40">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>any</source>
+        <destination>192.168.30.0 0.0.0.255</destination>
+        <destination_port>eq 80</destination_port>
+      </rule>
+      <rule sequence="50">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>any</source>
+        <destination>192.168.30.0 0.0.0.255</destination>
+        <destination_port>eq 443</destination_port>
+      </rule>
+      <rule sequence="60">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>any</source>
+        <destination>192.168.30.0 0.0.0.255</destination>
+        <destination_port>eq 445</destination_port>
+      </rule>
+      <rule sequence="70">
+        <action>permit</action>
+        <protocol>ip</protocol>
+        <source>any</source>
+        <destination>any</destination>
+      </rule>
+    </access_list>
+    
+    <access_list name="SERVER_INBOUND" type="extended">
+      <rule sequence="10">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>192.168.20.0 0.0.0.255</source>
+        <destination>any</destination>
+        <destination_port>eq 80</destination_port>
+      </rule>
+      <rule sequence="20">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>192.168.20.0 0.0.0.255</source>
+        <destination>any</destination>
+        <destination_port>eq 443</destination_port>
+      </rule>
+      <rule sequence="30">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>192.168.20.0 0.0.0.255</source>
+        <destination>any</destination>
+        <destination_port>eq 445</destination_port>
+      </rule>
+      <rule sequence="40">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>192.168.20.0 0.0.0.255</source>
+        <destination>any</destination>
+        <destination_port>range 1433 1434</destination_port>
+      </rule>
+      <rule sequence="50">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>192.168.10.0 0.0.0.255</source>
+        <destination>any</destination>
+        <destination_port>eq 22</destination_port>
+      </rule>
+      <rule sequence="60">
+        <action>permit</action>
+        <protocol>tcp</protocol>
+        <source>192.168.10.0 0.0.0.255</source>
+        <destination>any</destination>
+        <destination_port>eq 3389</destination_port>
+      </rule>
+      <rule sequence="100">
+        <action>deny</action>
+        <protocol>ip</protocol>
+        <source>any</source>
+        <destination>any</destination>
+        <log>true</log>
+      </rule>
+    </access_list>
+    
+    <access_list name="PORT_SECURITY_VIOLATION" type="standard">
+      <rule sequence="10">
+        <action>deny</action>
+        <source>any</source>
+      </rule>
+    </access_list>
+  </access_lists>
+  
+  <routing>
+    <static_routes>
+      <route>
+        <network>0.0.0.0/0</network>
+        <next_hop>10.1.1.1</next_hop>
+        <admin_distance>1</admin_distance>
+        <description>Default route via dist-rtr-01</description>
+      </route>
+      <route>
+        <network>192.168.0.0/16</network>
+        <next_hop>10.1.1.1</next_hop>
+        <admin_distance>50</admin_distance>
+        <description>Corporate networks via distribution</description>
+      </route>
+    </static_routes>
+    
+    <ospf>
+      <process_id>1</process_id>
+      <router_id>192.168.255.5</router_id>
+      <areas>
+        <area id="1.0.0.0">
+          <type>standard</type>
+          <networks>
+            <network>10.1.1.0/30</network>
+            <network>192.168.255.5/32</network>
+          </networks>
+        </area>
+      </areas>
+      <passive_interfaces>
+        <interface>Loopback0</interface>
+        <interface>Vlan10</interface>
+        <interface>Vlan20</interface>
+        <interface>Vlan30</interface>
+      </passive_interfaces>
+      <redistribute>
+        <static>
+          <enabled>false</enabled>
+        </static>
+      </redistribute>
+    </ospf>
+  </routing>
+  
+  <qos>
+    <class_maps>
+      <class_map name="VOICE">
+        <match_criteria>
+          <dscp>ef</dscp>
+        </match_criteria>
+      </class_map>
+      <class_map name="CRITICAL_DATA">
+        <match_criteria>
+          <dscp>af31 af32 af33</dscp>
+        </match_criteria>
+      </class_map>
+      <class_map name="BULK_DATA">
+        <match_criteria>
+          <dscp>af11 af12 af13</dscp>
+        </match_criteria>
+      </class_map>
+    </class_maps>
+    
+    <policy_maps>
+      <policy_map name="ACCESS_OUTPUT">
+        <classes>
+          <class name="VOICE">
+            <priority>20</priority>
+            <action>priority percent 20</action>
+          </class>
+          <class name="CRITICAL_DATA">
+            <bandwidth>percent 40</bandwidth>
+            <action>bandwidth percent 40</action>
+          </class>
+          <class name="BULK_DATA">
+            <bandwidth>percent 20</bandwidth>
+            <action>bandwidth percent 20</action>
+          </class>
+        </classes>
+      </policy_map>
+      
+      <policy_map name="ACCESS_INPUT">
+        <classes>
+          <class name="VOICE">
+            <action>set dscp ef</action>
+          </class>
+          <class name="CRITICAL_DATA">
+            <action>set dscp af31</action>
+          </class>
+        </classes>
+      </policy_map>
+    </policy_maps>
+    
+    <interface_policies>
+      <interface name="GigabitEthernet0/1">
+        <service_policy_out>ACCESS_OUTPUT</service_policy_out>
+      </interface>
+      <interface name="FastEthernet0/1">
+        <service_policy_in>ACCESS_INPUT</service_policy_in>
+      </interface>
+      <interface name="FastEthernet0/2">
+        <service_policy_in>ACCESS_INPUT</service_policy_in>
+      </interface>
+    </interface_policies>
+  </qos>
+  
+  <spanning_tree>
+    <mode>rapid-pvst</mode>
+    <root_guard>
+      <interfaces>
+        <interface>FastEthernet0/1</interface>
+        <interface>FastEthernet0/2</interface>
+        <interface>FastEthernet0/3</interface>
+        <interface>FastEthernet0/4</interface>
+        <interface>FastEthernet0/5</interface>
+        <interface>FastEthernet0/6</interface>
+      </interfaces>
+    </root_guard>
+    <bpdu_guard>
+      <default>true</default>
+    </bpdu_guard>
+    <vlan_priorities>
+      <vlan id="10">
+        <priority>28672</priority>
+      </vlan>
+      <vlan id="20">
+        <priority>28672</priority>
+      </vlan>
+      <vlan id="30">
+        <priority>28672</priority>
+      </vlan>
+      <vlan id="200">
+        <priority>28672</priority>
+      </vlan>
+    </vlan_priorities>
+  </spanning_tree>
+  
+  <snmp>
+    <communities>
+      <community>
+        <name>netmgmt_ro</name>
+        <access>ro</access>
+        <acl>SNMP_HOSTS</acl>
+      </community>
+    </communities>
+    
+    <hosts>
+      <host>
+        <ip>192.168.10.100</ip>
+        <community>netmgmt_ro</community>
+        <version>2c</version>
+      </host>
+    </hosts>
+    
+    <location>Access Layer - Building A Floor 1</location>
+    <contact>Network Operations &lt;netops@company.com&gt;</contact>
+    
+    <traps>
+      <enabled>true</enabled>
+      <hosts>
+        <host>192.168.10.100</host>
+      </hosts>
+    </traps>
+    
+    <access_lists>
+      <access_list name="SNMP_HOSTS" type="standard">
+        <rule sequence="10">
+          <action>permit</action>
+          <source>192.168.10.100</source>
+        </rule>
+        <rule sequence="20">
+          <action>deny</action>
+          <source>any</source>
+        </rule>
+      </access_list>
+    </access_lists>
+  </snmp>
+  
+  <metadata>
+    <config_revision>1.5.2</config_revision>
+    <last_modified>2024-01-15T09:45:00Z</last_modified>
+    <generated_by>network-config-generator</generated_by>
+    <dependencies>
+      <dependency>dist-rtr-01</dependency>
+      <dependency>core-sw-01</dependency>
+      <dependency>core-sw-02</dependency>
+    </dependencies>
+    <shared_vlans>
+      <vlan>10</vlan>
+      <vlan>20</vlan>
+      <vlan>30</vlan>
+      <vlan>200</vlan>
+    </shared_vlans>
+    <shared_acls>
+      <acl>USER_INBOUND</acl>
+      <acl>SERVER_INBOUND</acl>
+    </shared_acls>
+    <ospf_neighbors>
+      <neighbor>dist-rtr-01</neighbor>
+    </ospf_neighbors>
+    <spanning_tree_mode>rapid-pvst</spanning_tree_mode>
+  </metadata>
+</network_device>

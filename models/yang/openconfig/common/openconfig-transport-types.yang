@@ -1,0 +1,426 @@
+module openconfig-transport-types {
+  yang-version 1;
+  namespace "http://openconfig.net/yang/transport-types";
+  prefix oc-opt-types;
+
+  import openconfig-platform-types {
+    prefix oc-platform-types;
+  }
+  import openconfig-extensions {
+    prefix oc-ext;
+  }
+  import openconfig-types {
+    prefix oc-types;
+  }
+
+  organization
+    "OpenConfig working group";
+
+  contact
+    "OpenConfig working group
+     www.openconfig.net";
+
+  description
+    "This module contains general type definitions and identities
+     for optical transport models.";
+
+  oc-ext:openconfig-version "0.9.0";
+  oc-ext:regexp-posix;
+  oc-ext:catalog-organization "openconfig";
+  oc-ext:origin "openconfig";
+
+  revision 2019-06-27 {
+    description
+      "Add FIBER_JUMPER_TYPE identityref.";
+    reference "0.9.0";
+  }
+  revision 2019-06-21 {
+    description
+      "Generalize and rename optical port type identity";
+    reference "0.8.0";
+  }
+  revision 2018-11-21 {
+    description
+      "Add OpenConfig module metadata extensions.";
+    reference "0.7.1";
+  }
+  revision 2018-10-23 {
+    description
+      "Added frame mapping protocols for logical channels assignments
+      and tributary slot granularity for OTN logical channels";
+    reference "0.7.0";
+  }
+  revision 2018-05-16 {
+    description
+      "Added interval,min,max time to interval stats.";
+    reference "0.6.0";
+  }
+  revision 2017-08-16 {
+    description
+      "Added ODU Cn protocol type";
+    reference "0.5.0";
+  }
+  revision 2016-12-22 {
+    description
+      "Fixes and additions for terminal optics model";
+    reference "0.4.0";
+  }
+
+  typedef frequency-type {
+    type uint64;
+    units "MHz";
+    description
+      "Type for optical spectrum frequency values";
+  }
+
+  typedef admin-state-type {
+    type enumeration {
+      enum ENABLED {
+        value 0;
+        description
+          "Sets the channel admin state to enabled";
+      }
+      enum DISABLED {
+        value 1;
+        description
+          "Sets the channel admin state to disabled";
+      }
+      enum MAINT {
+        value 2;
+        description
+          "Sets the channel to maintenance / diagnostic mode";
+      }
+    }
+    description
+      "Administrative state modes for logical channels in the
+       transponder model.";
+  }
+
+  typedef loopback-mode-type {
+    type enumeration {
+      enum NONE {
+        description
+          "No loopback is applied.";
+      }
+      enum FACILITY {
+        description
+          "A facility loopback is applied. In a facility loopback,
+           the signal received on the port (and destined for the
+           switch fabric) is looped back out the same port. The signal
+           from the switch fabric is dropped.";
+      }
+      enum TERMINAL {
+        description
+          "A terminal loopback is applied. In a terminal loopback,
+           the signal from the switch fabric is looped back to the
+           fabric. The signal received on the port is dropped.";
+      }
+    }
+    description
+      "Defines the loopback type for a logical channel";
+  }
+
+  identity TRIBUTARY_RATE_CLASS_TYPE {
+    description
+      "Base identity for tributary rate class types";
+  }
+
+  identity TRIB_RATE_1G {
+    base TRIBUTARY_RATE_CLASS_TYPE;
+    description
+      "Tributary rate of 1G";
+  }
+
+  identity TRIB_RATE_2.5G {
+    base TRIBUTARY_RATE_CLASS_TYPE;
+    description
+      "Tributary rate of 2.5G";
+  }
+
+  identity TRIB_RATE_5G {
+    base TRIBUTARY_RATE_CLASS_TYPE;
+    description
+      "Tributary rate of 5G";
+  }
+
+  identity TRIB_RATE_10G {
+    base TRIBUTARY_RATE_CLASS_TYPE;
+    description
+      "Tributary rate of 10G";
+  }
+
+  identity TRIB_RATE_40G {
+    base TRIBUTARY_RATE_CLASS_TYPE;
+    description
+      "Tributary rate of 40G";
+  }
+
+  identity TRIB_RATE_100G {
+    base TRIBUTARY__RATE_CLASS_TYPE;
+    description
+      "Tributary rate of 100G";
+  }
+
+  identity TRIBUTARY_PROTOCOL_TYPE {
+    description
+      "Base identity for tributary protocol types";
+  }
+
+  identity PROT_1GE {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "1G Ethernet protocol";
+  }
+
+  identity PROT_OC48 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OC48 protocol";
+  }
+
+  identity PROT_STM16 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "STM 16 protocol";
+  }
+
+  identity PROT_10GE_LAN {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "10G Ethernet LAN protocol";
+  }
+
+  identity PROT_10GE_WAN {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "10G Ethernet WAN protocol";
+  }
+
+  identity PROT_OC192 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OC 192 protocol";
+  }
+
+  identity PROT_STM64 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "STM 64 protocol";
+  }
+
+  identity PROT_OTU2 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OTU2 protocol";
+  }
+
+  identity PROT_OTU2E {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OTU2e protocol";
+  }
+
+  identity PROT_OTU1E {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OTU1e protocol";
+  }
+
+  identity PROT_ODU2 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "ODU2 protocol";
+  }
+
+  identity PROT_ODU2E {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "ODU2e protocol";
+  }
+
+  identity PROT_40GE {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "40G Ethernet protocol";
+  }
+
+  identity PROT_OC768 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OC 768 protocol";
+  }
+
+  identity PROT_STM256 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "STM 256 protocol";
+  }
+
+  identity PROT_OTU3 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OTU3 protocol";
+  }
+
+  identity PROT_ODU3 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "ODU3 protocol";
+  }
+
+  identity PROT_100GE {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "100G Ethernet protocol";
+  }
+
+  identity PROT_OTU4 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OTU4 protocol";
+  }
+
+  identity PROT_OTUC2 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OTUC2 protocol";
+  }
+
+  identity PROT_OTUC4 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "OTUC4 protocol";
+  }
+
+  identity PROT_ODU4 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "ODU4 protocol";
+  }
+
+  identity PROT_ODUC2 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "ODUC2 protocol";
+  }
+
+  identity PROT_ODUC4 {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "ODUC4 protocol";
+  }
+
+  identity PROT_ODUCN {
+    base TRIBUTARY_PROTOCOL_TYPE;
+    description
+      "ODU Cn protocol";
+  }
+
+  identity LOGICAL_CHANNEL_TYPE {
+    description
+      "Base identity for logical channel types";
+  }
+
+  identity PROT_ETHERNET {
+    base LOGICAL_CHANNEL_TYPE;
+    description
+      "Ethernet protocol framing for logical channels";
+  }
+
+  identity PROT_OTN {
+    base LOGICAL_CHANNEL_TYPE;
+    description
+      "OTN protocol framing for logical channels";
+  }
+
+  identity OPTICAL_CHANNEL {
+    base oc-platform-types:PORT_TYPE;
+    description
+      "Port is an optical channel";
+  }
+
+  identity SONET {
+    base oc-platform-types:PORT_TYPE;
+    description
+      "Port is a SONET/SDH port";
+  }
+
+  identity ETHERNET {
+    base oc-platform-types:PORT_TYPE;
+    description
+      "Port is an Ethernet port";
+  }
+
+  identity OTN {
+    base oc-platform-types:PORT_TYPE;
+    description
+      "Port is an OTN port";
+  }
+
+  identity OPTICAL_PORT_TYPE {
+    description
+      "Base identity for the type of optical port";
+  }
+
+  identity MONITOR {
+    base OPTICAL_PORT_TYPE;
+    description
+      "Monitor port, used for tapping the optical signal for monitoring
+       purposes (e.g., to an OCM or OSA)";
+  }
+
+  identity FIBER_JUMPER {
+    base OPTICAL_PORT_TYPE;
+    description
+      "Fiber jumper, used for connecting two front panel ports on the
+       same device";
+  }
+
+  identity LOGICAL_ELEMENT_PROTOCOL_TYPE {
+    description
+      "Base identity for the protocol that is encapsulating the
+       traffic running over the logical element.";
+  }
+
+  identity GMP {
+    base LOGICAL_ELEMENT_PROTOCOL_TYPE;
+    description
+      "Generic Mapping Procedure.";
+  }
+
+  identity BMP {
+    base LOGICAL_ELEMENT_PROTOCOL_TYPE;
+    description
+      "Bit-synchronous Mapping Procedure.";
+  }
+
+  identity AMP {
+    base LOGICAL_ELEMENT_PROTOCOL_TYPE;
+    description
+      "Asynchronous Mapping Procedure.";
+  }
+
+  identity CBR {
+    base LOGICAL_ELEMENT_PROTOCOL_TYPE;
+    description
+      "Constant Bit Rate.";
+  }
+
+  identity GFP_F {
+    base LOGICAL_ELEMENT_PROTOCOL_TYPE;
+    description
+      "Framed-Mapped Generic Framing Procedure.";
+  }
+
+  identity GFP_T {
+    base LOGICAL_ELEMENT_PROTOCOL_TYPE;
+    description
+      "Transparent Generic Framing Procedure.";
+  }
+
+  identity NULL {
+    base LOGICAL_ELEMENT_PROTOCOL_TYPE;
+    description
+      "Null or test pattern.";
+  }
+}

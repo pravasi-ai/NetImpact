@@ -1,0 +1,29 @@
+{
+  "cisco-ios": {
+    "routing.ospf.global.config.router-id": "routing.ospf.router_id",
+    "routing.bgp.global.config.as": "routing.bgp.as_number",
+    "routing.bgp.global.config.router-id": "routing.bgp.router_id",
+    "openconfig-interfaces:interfaces.interface": "interfaces",
+    "openconfig-vlan:vlans.vlan": "vlans",
+    "openconfig-acl:acl.acl-sets.acl-set": "access_lists"
+  },
+  "cisco-ios-xe": {
+    "routing.ospf.global.config.router-id": "routing.ospf.router_id",
+    "routing.bgp.global.config.as": "routing.bgp.as_number",
+    "routing.bgp.global.config.router-id": "routing.bgp.router_id",
+    "openconfig-interfaces:interfaces.interface": "interfaces",
+    "openconfig-vlan:vlans.vlan": "vlans",
+    "openconfig-acl:acl.acl-sets.acl-set": "access_lists"
+  },
+  "arista-eos": {
+    "routing.ospf.global.config.router-id": "routing.ospf.router_id",
+    "routing.bgp.global.config.as": "routing.bgp.as_number",
+    "routing.bgp.global.config.router-id": "routing.bgp.router_id",
+    "openconfig-interfaces:interfaces.interface": "interfaces",
+    "openconfig-vlan:vlans.vlan": "vlans",
+    "openconfig-acl:acl.acl-sets.acl-set": "access_lists",
+    "openconfig-qos:qos": "qos",
+    "snmp": "snmp",
+    "system": "system"
+  }
+}

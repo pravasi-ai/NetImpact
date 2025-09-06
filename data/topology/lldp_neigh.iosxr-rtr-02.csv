@@ -1,0 +1,2 @@
+local_interface,neighbor_hostname,neighbor_interface,neighbor_description
+GigabitEthernet0/0/0/0,iosxr-rtr-01,GigabitEthernet0/0/0/2,Connection to iosxr-rtr-02

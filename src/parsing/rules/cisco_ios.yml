@@ -1,0 +1,115 @@
+os_type: cisco_ios
+version: 1.1
+
+# Defines regex patterns to parse Cisco IOS configurations.
+# Each feature attribute is a list of patterns to try in order.
+
+features:
+  hostname:
+    - pattern: '^hostname\s+(\S+)'
+      type: value_extraction
+
+  vlans:
+    - parent: '^vlan\s+(\d+)'
+      child_map:
+        name:
+          - pattern: '^\s+name\s+(.*)$'
+            type: value_extraction
+
+  interfaces:
+    - parent: '^interface\s+([\w\/\.-]+)'
+      child_map:
+        description:
+          - pattern: '^\s+description\s+(.*)$'
+            type: value_extraction
+        ip_address:
+          - pattern: '^\s+ip\s+address\s+([\d\.]+)\s+([\d\.]+)'
+            type: value_extraction
+        ip_ospf_area:
+          - pattern: '^\s+ip\s+ospf\s+\d+\s+area\s+([\d\.]+)'
+            type: value_extraction
+        ip_access_group_in:
+          - pattern: '^\s+ip\s+access-group\s+(\S+)\s+in$'
+            type: value_extraction
+        switchport_mode:
+          - pattern: '^\s+switchport\s+mode\s+(\S+)'
+            type: value_extraction
+        switchport_access_vlan:
+          - pattern: '^\s+switchport\s+access\s+vlan\s+(\d+)'
+            type: value_extraction
+        switchport_trunk_allowed_vlan:
+          - pattern: '^\s+switchport\s+trunk\s+allowed\s+vlan\s+([\d,-]+)'
+            type: value_extraction
+        switchport_trunk_native_vlan:
+          - pattern: '^\s+switchport\s+trunk\s+native\s+vlan\s+(\d+)'
+            type: value_extraction
+        shutdown:
+          - pattern: '^\s+shutdown$'
+            type: presence
+        no_switchport:
+          - pattern: '^\s+no\s+switchport$'
+            type: presence
+        ip_helper_address:
+          - pattern: '^\s+ip\s+helper-address\s+([\d\.]+)'
+            type: value_extraction
+
+  ospf:
+    - parent: '^router\s+ospf\s+(\d+)'
+      child_map:
+        router_id:
+          - pattern: '^\s+router-id\s+([\d\.]+)'
+            type: value_extraction
+        passive_interface:
+          - pattern: '^\s+passive-interface\s+(\S+)'
+            type: value_extraction
+        no_passive_interface:
+          - pattern: '^\s+no\s+passive-interface\s+(\S+)'
+            type: value_extraction
+        network_area:
+          - pattern: '^\s+network\s+([\d\.]+)\s+([\d\.]+)\s+area\s+([\d\.]+)'
+            type: value_extraction
+
+  static_routes:
+    - pattern: 'ip\s+route\s+(?P<prefix>[\d\.]+)\s+(?P<mask>[\d\.]+)\s+(?P<next_hop>[\d\.]+)'
+      type: value_extraction
+
+  bgp:
+    - parent: '^router\s+bgp\s+(\d+)'
+      child_map:
+        router_id:
+          - pattern: '^\s+bgp\s+router-id\s+([\d\.]+)'
+            type: value_extraction
+        neighbor_remote_as:
+          - pattern: '^\s+neighbor\s+([\d\.]+)\s+remote-as\s+(\d+)'
+            type: value_extraction
+        network:
+          - pattern: '^\s+network\s+([\d\.]+)\s+mask\s+([\d\.]+)'
+            type: value_extraction
+
+  acls:
+    - parent: '^ip\s+access-list\s+(extended|standard)\s+(\S+)'
+      child_map:
+        rule:
+          - pattern: '^\s*(\d+)?\s*(permit|deny)\s+(tcp|udp|ip|ospf|icmp)\s+(any|host\s+\S+|[\d\.\s]+)\s+(any|host\s+\S+|[\d\.\s]+)(?:\s+eq\s+(\S+))?(?:\s+log)?'
+            type: value_extraction
+          - pattern: '^\s*(permit|deny)\s+(any|host\s+[\d\.]+)(?:\s+log)?'
+            type: value_extraction
+
+  snmp:
+    - pattern: '^snmp-server\s+community\s+(\S+)\s+(RO|RW)(?:\s+(\S+))?'
+      type: value_extraction
+    - pattern: '^snmp-server\s+location\s+(.*)'
+      type: value_extraction
+
+  line:
+    - parent: '^line\s+(con|vty)\s+([\d\s-]+)'
+      child_map:
+        password:
+          - pattern: '^\s+password\s+(\S+)'
+            type: value_extraction
+        login:
+          - pattern: '^\s+login$'
+            type: presence
+        transport_input:
+          - pattern: '^\s+transport\s+input\s+(\S+)'
+            type: value_extraction

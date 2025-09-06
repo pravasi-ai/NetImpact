@@ -1,0 +1,151 @@
+module openconfig-defined-sets {
+
+  yang-version "1";
+
+  namespace "http://openconfig.net/yang/routing-policy/defined-sets";
+
+  prefix "oc-sets";
+
+  import openconfig-inet-types { prefix oc-inet; }
+  import openconfig-extensions { prefix oc-ext; }
+
+  organization "OpenConfig working group";
+
+  contact
+    "OpenConfig working group
+    www.openconfig.net";
+
+  description
+    "This module contains definitions for prefix sets and port sets
+    used in policy matching conditions. This is a minimal implementation
+    to satisfy ACL module dependencies.";
+
+  oc-ext:openconfig-version "1.0.0";
+
+  revision "2024-01-01" {
+    description
+      "Minimal defined-sets module for ACL compatibility";
+    reference "1.0.0";
+  }
+
+  grouping ipv4-prefix-set-config {
+    description
+      "IPv4 prefix set configuration";
+
+    leaf name {
+      type string;
+      description
+        "Name of the IPv4 prefix set";
+    }
+  }
+
+  grouping ipv6-prefix-set-config {
+    description
+      "IPv6 prefix set configuration";
+
+    leaf name {
+      type string;
+      description
+        "Name of the IPv6 prefix set";
+    }
+  }
+
+  grouping port-set-config {
+    description
+      "Port set configuration";
+
+    leaf name {
+      type string;
+      description
+        "Name of the port set";
+    }
+  }
+
+  grouping defined-sets-top {
+    description
+      "Top-level container for defined sets";
+
+    container defined-sets {
+      description
+        "Predefined sets of attributes for policy matching";
+
+      container ipv4-prefix-sets {
+        description
+          "Container for IPv4 prefix sets";
+
+        list ipv4-prefix-set {
+          key "name";
+          description
+            "List of IPv4 prefix sets";
+
+          leaf name {
+            type leafref {
+              path "../config/name";
+            }
+            description
+              "Reference to IPv4 prefix set name";
+          }
+
+          container config {
+            description
+              "Configuration data for IPv4 prefix set";
+            uses ipv4-prefix-set-config;
+          }
+        }
+      }
+
+      container ipv6-prefix-sets {
+        description
+          "Container for IPv6 prefix sets";
+
+        list ipv6-prefix-set {
+          key "name";
+          description
+            "List of IPv6 prefix sets";
+
+          leaf name {
+            type leafref {
+              path "../config/name";
+            }
+            description
+              "Reference to IPv6 prefix set name";
+          }
+
+          container config {
+            description
+              "Configuration data for IPv6 prefix set";
+            uses ipv6-prefix-set-config;
+          }
+        }
+      }
+
+      container port-sets {
+        description
+          "Container for port sets";
+
+        list port-set {
+          key "name";
+          description
+            "List of port sets";
+
+          leaf name {
+            type leafref {
+              path "../config/name";
+            }
+            description
+              "Reference to port set name";
+          }
+
+          container config {
+            description
+              "Configuration data for port set";
+            uses port-set-config;
+          }
+        }
+      }
+    }
+  }
+
+  uses defined-sets-top;
+
+}

@@ -1,0 +1,91 @@
+{
+  "ietf-yang-library:modules-state": {
+    "module-set-id": "dependency-focused",
+    "module": [
+      {
+        "name": "ietf-yang-types",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "revision": "2013-07-15",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "ietf-interfaces",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-interfaces",
+        "revision": "2014-05-08",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-types",
+        "namespace": "http://openconfig.net/yang/openconfig-types",
+        "revision": "2024-01-31",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-yang-types",
+        "namespace": "http://openconfig.net/yang/types/yang",
+        "revision": "2024-05-30",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-inet-types",
+        "namespace": "http://openconfig.net/yang/types/inet",
+        "revision": "2024-01-05",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-extensions",
+        "namespace": "http://openconfig.net/yang/openconfig-ext",
+        "revision": "2024-09-19",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-acl",
+        "namespace": "http://openconfig.net/yang/acl",
+        "revision": "2023-02-06",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-interfaces",
+        "namespace": "http://openconfig.net/yang/interfaces",
+        "revision": "2024-12-05",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-transport-types",
+        "namespace": "http://openconfig.net/yang/transport-types",
+        "revision": "2019-06-27",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-platform-types",
+        "namespace": "http://openconfig.net/yang/platform-types",
+        "revision": "2025-07-09",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-defined-sets",
+        "namespace": "http://openconfig.net/yang/defined-sets",
+        "revision": "2022-12-14",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-packet-match",
+        "namespace": "http://openconfig.net/yang/header-fields",
+        "revision": "2023-03-01",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-packet-match-types",
+        "namespace": "http://openconfig.net/yang/packet-match-types",
+        "revision": "2023-01-29",
+        "conformance-type": "implement"
+      },
+      {
+        "name": "openconfig-mpls-types",
+        "namespace": "http://openconfig.net/yang/mpls-types",
+        "revision": "2023-12-14",
+        "conformance-type": "implement"
+      }
+    ]
+  }
+}

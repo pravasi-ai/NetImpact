@@ -1,0 +1,8 @@
+Create machines that produce parts, those parts will be used in our app.
+    Part 1 - parsers : having it's own prompt and sub project area including tests. 
+    Part 2 - Text config to openconfig 
+    Part 3 - Diff of config 
+
+
+       64 -                  library_file = self.yang_models_path / "openconfig-yang-library.json"
+       64 +                  library_file = self.yang_models_path / "dependency-focused.json"

@@ -1,0 +1,5 @@
+peer_ip,peer_hostname,peer_asn,peer_type,session_state,local_interface,peer_interface
+192.168.1.10,core-sw-01,65001,ibgp,established,Vlan1,Vlan1
+192.168.1.20,core-sw-02,65001,ibgp,established,Vlan1,Vlan1
+203.0.113.1,isp-router,65100,ebgp,established,GigabitEthernet0/1,WAN
+10.0.6.1,iosxr-rtr-01,65001,ibgp,established,GigabitEthernet0/0/2,GigabitEthernet0/0/0/1

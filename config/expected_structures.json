@@ -1,0 +1,279 @@
+{
+  "cisco-ios": {
+    "preferred_format": "openconfig",
+    "description": "Cisco IOS devices prefer OpenConfig format for standardized configuration across vendors",
+    "structure_examples": {
+      "routing": {
+        "bgp": {
+          "global": {
+            "config": {
+              "as": 65001,
+              "router-id": "10.0.0.1"
+            }
+          },
+          "neighbors": []
+        },
+        "ospf": {
+          "global": {
+            "config": {
+              "router-id": "10.0.0.1"
+            }
+          },
+          "areas": {
+            "area": [
+              {
+                "identifier": "0.0.0.0",
+                "config": {
+                  "identifier": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "openconfig-interfaces:interfaces": {
+        "interface": [
+          {
+            "name": "GigabitEthernet0/0/1",
+            "config": {
+              "name": "GigabitEthernet0/0/1",
+              "description": "Connection to core"
+            }
+          }
+        ]
+      },
+      "openconfig-acl:acl": {
+        "acl-sets": {
+          "acl-set": [
+            {
+              "name": "PERMIT_MANAGEMENT",
+              "type": "ACL_IPV4",
+              "config": {
+                "name": "PERMIT_MANAGEMENT",
+                "type": "ACL_IPV4"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "cisco-ios-xe": {
+    "preferred_format": "openconfig", 
+    "description": "Cisco IOS-XE devices prefer OpenConfig format for standardized configuration across vendors",
+    "structure_examples": {
+      "routing": {
+        "bgp": {
+          "global": {
+            "config": {
+              "as": 65001,
+              "router-id": "10.0.0.1"
+            }
+          },
+          "neighbors": []
+        },
+        "ospf": {
+          "global": {
+            "config": {
+              "router-id": "10.0.0.1"
+            }
+          },
+          "areas": {
+            "area": [
+              {
+                "identifier": "0.0.0.0",
+                "config": {
+                  "identifier": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "openconfig-interfaces:interfaces": {
+        "interface": [
+          {
+            "name": "GigabitEthernet1/0/1",
+            "config": {
+              "name": "GigabitEthernet1/0/1",
+              "description": "Connection to distribution"
+            }
+          }
+        ]
+      },
+      "openconfig-acl:acl": {
+        "acl-sets": {
+          "acl-set": [
+            {
+              "name": "WEB_TRAFFIC_ACL",
+              "type": "ACL_IPV4",
+              "config": {
+                "name": "WEB_TRAFFIC_ACL",
+                "type": "ACL_IPV4"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "cisco-nxos": {
+    "preferred_format": "openconfig",
+    "description": "Cisco NX-OS devices prefer OpenConfig format for standardized configuration across vendors", 
+    "structure_examples": {
+      "routing": {
+        "bgp": {
+          "global": {
+            "config": {
+              "as": 65001,
+              "router-id": "10.0.0.1"
+            }
+          },
+          "neighbors": []
+        },
+        "ospf": {
+          "global": {
+            "config": {
+              "router-id": "10.0.0.1"
+            }
+          },
+          "areas": {
+            "area": [
+              {
+                "identifier": "0.0.0.0",
+                "config": {
+                  "identifier": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "openconfig-interfaces:interfaces": {
+        "interface": [
+          {
+            "name": "Ethernet1/1",
+            "config": {
+              "name": "Ethernet1/1",
+              "description": "Uplink to spine"
+            }
+          }
+        ]
+      },
+      "openconfig-vlan:vlans": {
+        "vlan": [
+          {
+            "vlan-id": 100,
+            "config": {
+              "vlan-id": 100,
+              "name": "PRODUCTION",
+              "status": "ACTIVE"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "arista-eos": {
+    "preferred_format": "openconfig",
+    "description": "Arista EOS devices prefer OpenConfig format for standardized configuration across vendors",
+    "structure_examples": {
+      "routing": {
+        "bgp": {
+          "global": {
+            "config": {
+              "as": 65001,
+              "router-id": "10.0.0.1"
+            }
+          },
+          "neighbors": []
+        },
+        "ospf": {
+          "global": {
+            "config": {
+              "router-id": "10.0.0.1"
+            }
+          },
+          "areas": {
+            "area": [
+              {
+                "identifier": "0.0.0.0",
+                "config": {
+                  "identifier": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "openconfig-interfaces:interfaces": {
+        "interface": [
+          {
+            "name": "Ethernet1",
+            "config": {
+              "name": "Ethernet1",
+              "description": "Connection to peer"
+            }
+          }
+        ]
+      },
+      "openconfig-vlan:vlans": {
+        "vlan": [
+          {
+            "vlan-id": 100,
+            "config": {
+              "vlan-id": 100,
+              "name": "PRODUCTION_VLAN",
+              "status": "ACTIVE"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "juniper-junos": {
+    "preferred_format": "openconfig",
+    "description": "Juniper JunOS devices prefer OpenConfig format for standardized configuration",
+    "structure_examples": {
+      "routing": {
+        "bgp": {
+          "global": {
+            "config": {
+              "as": 65001,
+              "router-id": "10.0.0.1"
+            }
+          },
+          "neighbors": []
+        },
+        "ospf": {
+          "global": {
+            "config": {
+              "router-id": "10.0.0.1"
+            }
+          },
+          "areas": {
+            "area": [
+              {
+                "identifier": "0.0.0.0",
+                "config": {
+                  "identifier": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "openconfig-interfaces:interfaces": {
+        "interface": [
+          {
+            "name": "ge-0/0/0",
+            "config": {
+              "name": "ge-0/0/0",
+              "description": "Uplink interface"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
