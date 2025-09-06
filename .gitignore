@@ -1,0 +1,54 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.env
+env/
+venv/
+ENV/
+
+# Environment and sensitive files
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+
+# Database files
+*.db
+*.sqlite3
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Neo4j data
+neo4j-data/
+
+# Project-specific directories
+POC/
+poc_08302025/
+issues/
+tests/
+
+# Project-specific files and directories
+.claude/
+CLAUDE.md
+docker-compose.yml
